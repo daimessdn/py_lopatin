@@ -5,6 +5,8 @@
 import matplotlib
 import matplotlib.pyplot as plt
 
+import numpy as np
+
 import math
 
 # fungsi mencari gradien
@@ -33,40 +35,20 @@ print()
 
 # menerima input ketebalan formasi.
 for i in range(len(formasi)):
-	in_ket = list(map(float, input("Masukkan ketebalan untuk formasi " + formasi[i] + ": \n").split()))
+	in_ket = list(map(int, input("Masukkan ketebalan untuk formasi " + formasi[i] + ": \n").split()))
 	ketebalan.append(in_ket)
 
 # penyesuaian kedalaman formasi dengan ketebalan
-# for i in range(len(formasi)):
-# 	sigma = sum(ketebalan[i])
-	
-# 	# print(sigma)
-
-# 	for j in range(len(umur)):
-# 		# if (ketebalan[i][j] == -1 and j != 0):
-# 		# 	# ketebalan[i][j] = ketebalan[i][j-1] - gradien(ketebalan[i+1][j-1], ketebalan[i+1][j], umur[j-1], umur[j]) * (umur[j-1] - umur[j])
-# 		# 	ketebalan[i][j] = 0
-# 		# elif (ketebalan[i][j] == -1 and j == 0):
-# 		# 	ketebalan[i][j] = ketebalan[i][j+1] + gradien(ketebalan[i+1][j], ketebalan[i+1][j+1], umur[j], umur[j+1]) * (umur[j] - umur[j+1])
-# 		# else:
-# 		# 	ketebalan[i][j] += sigma
-# 		# 	sigma = ketebalan[i][j]
-
-# 		temp = ketebalan[i][j]
-# 		ketebalan[i][j] = sigma
-		
-# 		if (sigma == 0 and (ketebalan[i][j-1] == 0 or ketebalan[i][j-1] == None)):
-# 			ketebalan[i][j] = None
-
-# 		sigma -= temp
-
 for i in range(len(umur)):
 	sigma = 0
 	for j in range(len(formasi)):
 		sigma += ketebalan[j][i]
 		ketebalan[j][i] = sigma
 
-# print(ketebalan)
+for i in range(len(formasi)):
+	for j in range(len(umur)):
+		print(ketebalan[i][j], end=" ")
+	print()
 
 maximum = max([max(i) for i in ketebalan])
 
@@ -91,12 +73,15 @@ ax2 = ax1.twinx()
 ax2.set_ylabel("isotemperature")
 ax2.set_ylim(bottom=20, top=max(isoT))
 
+temperature = []
+
 for i in range(len(isoT)):
 	int_isot = []
 	for j in range(len(umur)):
 		int_isot.append(isoT[i])
 
-	ax2.plot(umur, int_isot, color='red', linestyle="--", linewidth=1)
+	ax2.plot(umur, int_isot, color='red', linestyle="--", linewidth=0.5)
+	temperature.append(int_isot)
 
 ax2.invert_yaxis()
 
@@ -112,12 +97,14 @@ ax1.set_ylim(bottom=0, top=maximum)
 
 ax1.invert_yaxis()
 
+np.savetxt("file_name.csv", np.row_stack((umur, ketebalan)), delimiter=",", fmt='%s')
+np.savetxt("temperature.csv", np.row_stack((umur, temperature)), delimiter=",", fmt='%s')
+
 plt.title("Lopatin Burial History")
-ax1.legend(bbox_to_anchor=(1,0), ncol=4, prop={'size': 8.5})             # menampilkan legenda
+ax1.legend(bbox_to_anchor=(1,0), ncol=4, prop={'size': 8})             # menampilkan legenda
 fig.tight_layout()
 plt.xlim(min(umur), max(umur))
 plt.gca().invert_xaxis() # membalik sumbu-x
 # plt.gca().invert_yaxis() # membalik sumbu-y
-# plt.grid()
+ax1.grid()
 plt.show()
-
