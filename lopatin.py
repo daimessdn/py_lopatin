@@ -97,8 +97,8 @@ ax1.set_ylim(bottom=0, top=maximum)
 
 ax1.invert_yaxis()
 
-np.savetxt("file_name.csv", np.row_stack((umur, ketebalan)), delimiter=",", fmt='%s')
-np.savetxt("temperature.csv", np.row_stack((umur, temperature)), delimiter=",", fmt='%s')
+np.savetxt("csv/file_name.csv", np.row_stack((umur, ketebalan)), delimiter=",", fmt='%s')
+np.savetxt("csv/temperature.csv", np.row_stack((umur, temperature)), delimiter=",", fmt='%s')
 
 plt.title("Lopatin Burial History")
 ax1.legend(bbox_to_anchor=(1,0), ncol=4, prop={'size': 8})             # menampilkan legenda
