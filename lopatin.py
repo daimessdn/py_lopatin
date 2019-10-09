@@ -104,7 +104,10 @@ plt.title("Lopatin Burial History")
 ax1.legend(bbox_to_anchor=(1,0), ncol=4, prop={'size': 8})             # menampilkan legenda
 fig.tight_layout()
 plt.xlim(min(umur), max(umur))
-plt.gca().invert_xaxis() # membalik sumbu-x
+ax1.invert_xaxis()
+ax2.invert_xaxis()
+# plt.gca().invert_xaxis() # membalik sumbu-x
 # plt.gca().invert_yaxis() # membalik sumbu-y
-ax1.grid()
+# ax1.grid()
+plt.savefig("image.png")
 plt.show()
