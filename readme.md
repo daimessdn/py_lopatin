@@ -27,7 +27,7 @@ Tanjung Bawah                         # 8th formation name
 ```
 
 ## Running and simulation graph
-Run
+Run in terminal
 ```bash
 python lopatin.py < input.in
 ```
